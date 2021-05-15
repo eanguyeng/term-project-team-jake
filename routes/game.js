@@ -1,6 +1,10 @@
 var express = require('express');
 var router = express.Router();
 
+router.get("/", function (request, response, next) {
+    response.render("game.pug");
+  });
+
 console.clear();
 
 const DECK = [
@@ -27,10 +31,12 @@ let discardPileCards = [];
 
 function createHand(handSize = 7) {
   let hand = [];
-  for(let i = 0; i < handSize; i++) {
+  for (let i = 0; i < handSize; i++) {if (window.CP.shouldStopExecution(0)) break;
     let cardIndex = Math.floor(Math.random() * availableCards.length);
     let card = availableCards.splice(cardIndex, 1)[0];
     hand.push(card);
-  }
+  }window.CP.exitedLoop(0);
   return hand;
 }
+
+module.export = router;
